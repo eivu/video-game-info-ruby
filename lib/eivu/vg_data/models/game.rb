@@ -1,6 +1,5 @@
 require 'active_record'
 
-
 module Eivu
   class VgData
     module Models
