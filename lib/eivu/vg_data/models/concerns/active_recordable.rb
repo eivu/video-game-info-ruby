@@ -1,6 +1,5 @@
 require 'active_record'
 
-# ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db.sqlite')
 module Eivu
   class VgData
     module Models
@@ -9,10 +8,7 @@ module Eivu
           extend ActiveSupport::Concern
 
           included do
-            ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: '../../db.sqlite3')
-            # def self.acts_as_active_recordable
-            #   include ActiveRecordable::InstanceMethods
-            # end
+            ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'lib/eivu/vg_data/db/db.sqlite3')
           end
 
           # module InstanceMethods
