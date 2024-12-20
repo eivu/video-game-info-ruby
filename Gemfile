@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_stri ng_literal: true
 
 source 'https://rubygems.org'
 ruby '3.1.2'
