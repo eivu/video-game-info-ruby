@@ -7,7 +7,13 @@ module Eivu
       class Game < ::ActiveRecord::Base
         include Eivu::VgData::Models::Concerns::ActiveRecordable
 
-        COUNTRY_REGEX = /\(([^)]+)\)/
+        REGEX_LIST = [
+          REGEX_THE = ', the',
+          REGEX_AND = ' and ',
+          
+          REGEX_COUNTRY = /\(([^)]+)\)/,
+          REGEX_MISC_TAG= /\[([^)]+)\]/
+        ]
 
         class << self
           def extract_country(rom_name)
@@ -27,12 +33,14 @@ module Eivu
             end
           end
 
-
           def sanitize_rom(rom_name)
-            name = File.basename(rom_name, '.*')
-            name = name.downcase
-            name = name.gsub(COUNTRY_REGEX, '')
-            name = name.gsub(/[^a-z0-9]/, '')
+            name = File.basename(rom_name, '.*')]
+            name.gsub!(COUNTRY_REGEX, '')
+            name.gsub!(MISC_TAG_REGEX, '')
+            name.downcase!
+            name.gsub!(AND, '')
+            name = "the #{name.gsub(THE, '')}" if name.include?(THE)
+            name.gsub!(/[^a-z0-9]/, '')
             name
           end
         end
