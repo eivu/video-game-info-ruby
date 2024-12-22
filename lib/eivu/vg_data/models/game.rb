@@ -6,14 +6,8 @@ module Eivu
     module Models
       class Game < ::ActiveRecord::Base
         include Eivu::VgData::Models::Concerns::ActiveRecordable
-
-        # REGEX_LIST = [
-        #   REGEX_THE = ', the',
-        #   REGEX_AND = ' and ',
-        #   REGEX_DISNEYS = 'disney\'s',
-        #   REGEX_COUNTRY = /\(([^)]+)\)/,
-        #   REGEX_MISC_TAG= /\[([^)]+)\]/
-        # ]
+        
+        belongs_to :platform
 
         # full list including disc based systems at 
         # https://gist.github.com/dabobert/00f23d168a0f4c861d3d2dbea83f2b37

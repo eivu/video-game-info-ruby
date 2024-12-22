@@ -34,8 +34,8 @@ module Eivu
               .where.not(id: [6, 7, 8, 12, 38, 42, 73, 87, 86, 91, 147])
               .update_all("short_name = replace(short_name, '#{string} ', '')")
           end
-          populate_platform_id_in_games
-          clean_db_game_names
+          # populate_platform_id_in_games
+          # clean_db_game_names
         end
 
         def populate_platform_id_in_games
