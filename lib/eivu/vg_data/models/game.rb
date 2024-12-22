@@ -7,13 +7,13 @@ module Eivu
       class Game < ::ActiveRecord::Base
         include Eivu::VgData::Models::Concerns::ActiveRecordable
 
-        REGEX_LIST = [
-          REGEX_THE = ', the',
-          REGEX_AND = ' and ',
-          REGEX_DISNEYS = 'disney\'s',
-          REGEX_COUNTRY = /\(([^)]+)\)/,
-          REGEX_MISC_TAG= /\[([^)]+)\]/
-        ]
+        # REGEX_LIST = [
+        #   REGEX_THE = ', the',
+        #   REGEX_AND = ' and ',
+        #   REGEX_DISNEYS = 'disney\'s',
+        #   REGEX_COUNTRY = /\(([^)]+)\)/,
+        #   REGEX_MISC_TAG= /\[([^)]+)\]/
+        # ]
 
         # full list including disc based systems at 
         # https://gist.github.com/dabobert/00f23d168a0f4c861d3d2dbea83f2b37
@@ -60,12 +60,13 @@ module Eivu
         # order matters for the array below
         # will be run in order they are defined
         REPLACE_RULES_LIST = [
-          REGEX_COUNTRY  = /\(([^)]+)\)/,
-          REGEX_MISC_TAG = /\[([^)]+)\]/,
-          RULE_THE = ', the '.freeze,
+          REGEX_COUNTRY  = /\(([^)]+)\)/, # replace (value)
+          REGEX_MISC_TAG = /\[([^)]+)\]/, # replace [value]
+          RULE_THE_MID = ' the '.freeze,
+          RULE_THE_START = /^the /,
           RULE_AND = ' and '.freeze,
           RULE_DISNEYS = 'disney\'s'.freeze,
-          REGEX_SPECIAL_CHARS = /[^a-z0-9]/
+          RULE_SPECIAL_CHARS = /[^a-z0-9]/
         ]
 
         class << self
@@ -86,10 +87,10 @@ module Eivu
             end
           end
 
-          def slugify_string(name)
-            name.downcase!
-            REPLACE_RULES_LIST.each { |rule| name.gsub!(rule, '') }
-            name
+          def slugify_string(string)
+            value = string.dup.downcase
+            REPLACE_RULES_LIST.each { |rule| value.gsub!(rule, '') }
+            value
           end
 
           def slugify_rom(rom_name)
