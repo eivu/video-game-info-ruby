@@ -95,6 +95,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 7.2, >= 7.2.2.1)
+  activesupport (~> 7.2, >= 7.2.2.1)
   nokogiri (~> 1.17, >= 1.17.2)
   pry (~> 0.14.1)
   rspec (~> 3.13)
