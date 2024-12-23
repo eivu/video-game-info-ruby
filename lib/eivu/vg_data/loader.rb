@@ -1,5 +1,6 @@
 require 'pry'
 require 'active_record'
+require 'active_support/all'
 
 module Eivu
   class VgData
@@ -33,7 +34,7 @@ module Eivu
         'Nintendo 3DS' => %w[3ds],
         'Nintendo 64' => %w[v64 z64 n64],
         'Nintendo DS' => %w[nds],
-        'Nintendo Entertainment System' => %w[nes bsv nez unf unif]],
+        'Nintendo Entertainment System' => %w[nes bsv nez unf unif],
         'Nintendo Game Boy' => %w[gb],
         'Nintendo Game Boy Advance' => %w[gba srl],
         'Nintendo Game Boy Color' => %w[gbc],
@@ -192,19 +193,25 @@ module Eivu
         'PICO-8' => %w[],
         'VTech V.Smile' => %w[],
         'Microsoft Xbox Series X/S' => %w[],
-      }.freeze  
+      }.freeze
+
+      PLATFORM_NAMES_TO_IGNORE = [
+        'Atari 2600', 'Atari 5200', 'Atari 7800', 'Atari XEGS', 'Sega CD', 'Sega Master System',
+        'Atari ST', 'Sega System 32', 'Sega System 16', 'Atari 800', 'Sega CD 32X', 
+      ]
 
       class << self
-        def clean_db_game_names
-          Eivu::VgData::Models::Game.find_each do |game|
+        def populate_game_slugs
+          Eivu::VgData::Models::Game.where(slug: nil).find_each do |game|
             puts game.id
             game.update_attribute(:slug, Eivu::VgData::Models::Game.slugify_string(game.name))
           end
         end
 
         def setup
+          setup_platform_roms_table
           # add_newer_columns
-          # populate_short_names
+          # populate_game_slugs
           # populate_platform_id_in_games
           # clean_db_game_names
         end
@@ -219,29 +226,43 @@ module Eivu
           Eivu::VgData::Models::Platform.update_all('short_name = name')
           %w[Sega Nintendo Commodore Sony Microsoft SNK].each do |string|
             Eivu::VgData::Models::Platform
-              .where.not(id: [6, 7, 8, 12, 38, 42, 73, 87, 86, 91, 147])
+              .where.not(name: PLATFORM_NAMES_TO_IGNORE)
               .update_all("short_name = replace(short_name, '#{string} ', '')")
           end
         end
 
         def add_newer_columns
           games_info = ActiveRecord::Base.connection.execute('PRAGMA table_info(games);')
-          if games_info.detect{|hash| hash['name'] == 'slug'}.nil?
+          if games_info.detect{|hash| hash['name'] == 'slug'}.blank?
             ActiveRecord::Base.connection.execute('ALTER TABLE "games" ADD COLUMN "slug" varchar')
           end
 
-          if games_info.detect{|hash| hash['name'] == 'platform_id'}.nil?
+          if games_info.detect{|hash| hash['name'] == 'platform_id'}.blank?
             ActiveRecord::Base.connection.execute('ALTER TABLE "games" ADD COLUMN "platform_id" varchar')
           end
 
           platforms_info = ActiveRecord::Base.connection.execute('PRAGMA table_info(platforms);')
-          if platforms_info.detect{|hash| hash['name'] == 'short_name'}.nil?
+          if platforms_info.detect{|hash| hash['name'] == 'short_name'}.blank?
             ActiveRecord::Base.connection.execute('ALTER TABLE "platforms" ADD COLUMN "short_name" varchar;')
           end
         end
 
-        def create_platform_roms_format_table
-          ActiveRecord::Base.connection.execute('CREATE TABLE "platform_roms_formats" ("id" integer,"platform_id" int, PRIMARY KEY (id));')
+        def setup_platform_roms_table
+          platform_formats_info = ActiveRecord::Base.connection.execute('PRAGMA table_info(platform_formats);')
+          if platform_formats_info.blank?
+            ActiveRecord::Base.connection.execute('CREATE TABLE "platform_formats" ("id" integer,"platform_id" int,"format" varchar, PRIMARY KEY (id));')
+          end
+
+          ROM_FORMATS.each do |platform_name, formats|
+            next if formats.blank?
+
+            platform = Eivu::VgData::Models::Platform.find_by(name: platform_name)
+            next if platform.blank?
+
+            formats.each do |format|
+              Eivu::VgData::Models::PlatformFormat.find_or_create_by(platform_id: platform.id, format: format)
+            end
+          end
         end
       end
     end
