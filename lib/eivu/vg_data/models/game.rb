@@ -6,7 +6,7 @@ module Eivu
     module Models
       class Game < ::ActiveRecord::Base
         include Eivu::VgData::Models::Concerns::ActiveRecordable
-        
+
         belongs_to :platform
 
         # order matters for the array below
@@ -20,7 +20,6 @@ module Eivu
           RULE_DISNEYS = 'disney\'s'.freeze,
           RULE_SPECIAL_CHARS = /[^a-z0-9]/
         ].freeze
-
 
         class << self
           def extract_country(rom_name)
@@ -38,6 +37,15 @@ module Eivu
             else
               'Unknown'
             end
+          end
+
+          def find_rom_info(filename)
+            format = File.extname(filename).delete('.')
+            platform_id = PlatformFormat.find_by(format:)&.platform_id
+            return nil if platform_id.nil?
+
+            slug = slugify_rom(filename)
+            Game.find_by(slug:, platform_id:)
           end
 
           def slugify_string(string)
