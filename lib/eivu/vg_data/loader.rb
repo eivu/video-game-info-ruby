@@ -192,17 +192,17 @@ module Eivu
         'Sony Playstation 5' => %w[],
         'PICO-8' => %w[],
         'VTech V.Smile' => %w[],
-        'Microsoft Xbox Series X/S' => %w[],
+        'Microsoft Xbox Series X/S' => %w[]
       }.freeze
 
       PLATFORM_NAMES_TO_IGNORE = [
         'Atari 2600', 'Atari 5200', 'Atari 7800', 'Atari XEGS', 'Sega CD', 'Sega Master System',
-        'Atari ST', 'Sega System 32', 'Sega System 16', 'Atari 800', 'Sega CD 32X', 
+        'Atari ST', 'Sega System 32', 'Sega System 16', 'Atari 800', 'Sega CD 32X'
       ]
 
       class << self
         def populate_game_slugs
-          Eivu::VgData::Models::Game.where(slug: nil).find_each do |game|
+          Eivu::VgData::Models::Game.find_each do |game|
             puts game.id
             game.update_attribute(:slug, Eivu::VgData::Models::Game.slugify_string(game.name))
           end
@@ -233,18 +233,18 @@ module Eivu
 
         def add_newer_columns
           games_info = ActiveRecord::Base.connection.execute('PRAGMA table_info(games);')
-          if games_info.detect{|hash| hash['name'] == 'slug'}.blank?
+          if games_info.detect { |hash| hash['name'] == 'slug' }.blank?
             ActiveRecord::Base.connection.execute('ALTER TABLE "games" ADD COLUMN "slug" varchar')
           end
 
-          if games_info.detect{|hash| hash['name'] == 'platform_id'}.blank?
+          if games_info.detect { |hash| hash['name'] == 'platform_id' }.blank?
             ActiveRecord::Base.connection.execute('ALTER TABLE "games" ADD COLUMN "platform_id" varchar')
           end
 
           platforms_info = ActiveRecord::Base.connection.execute('PRAGMA table_info(platforms);')
-          if platforms_info.detect{|hash| hash['name'] == 'short_name'}.blank?
-            ActiveRecord::Base.connection.execute('ALTER TABLE "platforms" ADD COLUMN "short_name" varchar;')
-          end
+          return unless platforms_info.detect { |hash| hash['name'] == 'short_name' }.blank?
+
+          ActiveRecord::Base.connection.execute('ALTER TABLE "platforms" ADD COLUMN "short_name" varchar;')
         end
 
         def setup_platform_roms_table
