@@ -56,6 +56,10 @@ module Eivu
             Game.find_by(slug:, platform_id:)
           end
 
+          def fetch_rom_as_json(filename)
+            find_rom_info(filename)&.as_json
+          end
+
           def slugify_string(string)
             value = I18n.transliterate(string.dup.downcase.gsub('_', ' '))
             SLUGIFY_RULES_LIST.each { |rule| value.gsub!(rule, '') }
