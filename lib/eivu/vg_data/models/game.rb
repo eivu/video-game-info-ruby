@@ -66,6 +66,12 @@ module Eivu
             slugify_string(File.basename(rom_name, '.*'))
           end
         end
+
+        def as_json(options = {})
+          response = attributes
+          response[:platform] = platform.short_name
+          response
+        end
       end
     end
   end
