@@ -72,7 +72,7 @@ module Eivu
         end
 
         def as_json(options = {})
-          response = attributes
+          response = attributes&.symbolize_keys
           response[:platform] = platform.short_name
           response
         end
