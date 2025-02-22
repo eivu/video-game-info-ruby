@@ -8,6 +8,8 @@ vendor/bundle
 *.rbc
 logs/*
 *.db-shm
+*.sqlite3-shm
+*.sqlite3-wal
 *.db-wal
 /.config
 /coverage/
