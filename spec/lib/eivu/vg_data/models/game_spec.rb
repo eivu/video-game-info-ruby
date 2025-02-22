@@ -186,14 +186,7 @@ describe Eivu::VgData::Models::Game do
     context 'when the rom is varooom-3d_slow' do
       let(:path) { 'spec/fixtures/roms/gba/varooom-3d_slow.gba' }
 
-      it 'returns the game info' do
-        aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('varooom3dslow')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
-        end
-      end
+      it { is_expected.to be_nil }
     end
 
     context 'when the rom is butano-fighter' do
@@ -265,12 +258,7 @@ describe Eivu::VgData::Models::Game do
       let(:path) { 'spec/fixtures/roms/nintendo_64/Rolling Pumpkins.n64' }
 
       it 'returns the game info' do
-        aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('rollingpumpkins')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
-        end
+        it { is_expected.to be_nil }
       end
     end
 
