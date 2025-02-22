@@ -7,6 +7,8 @@ vendor/bundle
 *.gem
 *.rbc
 logs/*
+*.db-shm
+*.db-wal
 /.config
 /coverage/
 /InstalledFiles
