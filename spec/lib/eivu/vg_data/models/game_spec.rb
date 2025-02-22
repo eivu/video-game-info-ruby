@@ -204,7 +204,7 @@ describe Eivu::VgData::Models::Game do
           expect(rom_info).to be_a(described_class)
           expect(rom_info.slug).to eq('butanofighter')
           expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.id).to eq(77_337)
         end
       end
     end
@@ -216,8 +216,8 @@ describe Eivu::VgData::Models::Game do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
           expect(rom_info.slug).to eq('tobutobugirl')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.platform_name).to eq('Nintendo Game Boy')
+          expect(rom_info.id).to eq(76_973)
         end
       end
     end
@@ -229,8 +229,8 @@ describe Eivu::VgData::Models::Game do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
           expect(rom_info.slug).to eq('dpadhero2')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
+          expect(rom_info.id).to eq(72_921)
         end
       end
     end
@@ -238,13 +238,12 @@ describe Eivu::VgData::Models::Game do
     context 'when the rom is flappy' do
       let(:path) { 'spec/fixtures/roms/nes/flappy.nes' }
 
-      it { is_expected.to eq('flappy') }
       it 'returns the game info' do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('varooom3d')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.slug).to eq('flappy')
+          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
+          expect(rom_info.id).to eq(73_153)
         end
       end
     end
@@ -252,13 +251,12 @@ describe Eivu::VgData::Models::Game do
     context 'when the rom is dpadhero' do
       let(:path) { 'spec/fixtures/roms/nes/dpadhero.nes' }
 
-      it { is_expected.to eq('dpadhero') }
       it 'returns the game info' do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('varooom3d')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.slug).to eq('dpadhero')
+          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
+          expect(rom_info.id).to eq(72_920)
         end
       end
     end
@@ -309,8 +307,8 @@ describe Eivu::VgData::Models::Game do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
           expect(rom_info.slug).to eq('jetpilotrising')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
+          expect(rom_info.id).to eq(122_263)
         end
       end
     end
