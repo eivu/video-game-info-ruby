@@ -27,7 +27,7 @@ module Eivu
 
         class << self
           def extract_country(rom_name)
-            case rom_name.scan(COUNTRY_REGEX).flatten&.first
+            case rom_name.scan(REGEX_COUNTRY).flatten&.first
             when 'U'
               'USA'
             when 'J'

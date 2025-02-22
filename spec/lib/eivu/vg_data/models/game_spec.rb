@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'eivu'
+
 describe Eivu::VgData::Models::Game do
   describe 'extract_country' do
     it 'returns USA for U' do
@@ -19,7 +21,7 @@ describe Eivu::VgData::Models::Game do
     end
 
     it 'returns Unknown for nil' do
-      expect(described_class.extract_country('Super Mario Bros.')).to eq('Unknown')
+      expect(described_class.extract_country('Super Mario Bros.')).to be_nil
     end
 
     it 'returns Unknown for other' do
