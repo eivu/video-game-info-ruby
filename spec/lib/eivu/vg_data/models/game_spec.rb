@@ -36,6 +36,12 @@ describe Eivu::VgData::Models::Game do
       end
     end
 
+    context 'with a string that contains accents' do
+      it 'returns a slugified string' do
+        expect(described_class.slugify_string('Pokémon Yellow')).to eq('pokemonyellow')
+      end
+    end
+
     context 'with a string with a country code' do
       it 'returns a slugified string' do
         expect(described_class.slugify_string('Super Mario Bros. (U)')).to eq('supermariobros')
@@ -57,6 +63,24 @@ describe Eivu::VgData::Models::Game do
     context 'when the word the is at the beginning of the string' do
       it 'returns a slugified string' do
         expect(described_class.slugify_string('The Happy Caveman')).to eq('happycaveman')
+      end
+    end
+
+    context 'when the string contains gbs player v1.0' do
+      it 'returns a slugified string' do
+        expect(described_class.slugify_string('GBS Player V1.0 - Super Mario Bros.')).to eq('supermariobros')
+      end
+    end
+
+    context 'when the string contains Disney\'s' do
+      it 'returns a slugified string' do
+        expect(described_class.slugify_string('Disney\'s Aladdin')).to eq('aladdin')
+      end
+    end
+
+    context 'when the string contains special characters within brackets' do
+      it 'returns a slugified string' do
+        expect(described_class.slugify_string('Super Mario Bros. [!p]')).to eq('supermariobros')
       end
     end
   end
