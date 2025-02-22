@@ -30,58 +30,60 @@ describe Eivu::VgData::Models::Game do
   end
 
   describe 'slugify_string' do
+    subject(:slug) { described_class.slugify_string(string) }
+
     context 'with a normal string' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('Super Mario Bros.')).to eq('supermariobros')
-      end
+      let(:string) { 'Super Mario Bros.' }
+
+      it { is_expected.to eq('supermariobros') }
     end
 
     context 'with a string that contains accents' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('Pokémon Yellow')).to eq('pokemonyellow')
-      end
+      let(:string) { 'Pokémon Yellow' }
+
+      it { is_expected.to eq('pokemonyellow') }
     end
 
     context 'with a string with a country code' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('Super Mario Bros. (U)')).to eq('supermariobros')
-      end
+      let(:string) { 'Super Mario Bros. (U)' }
+
+      it { is_expected.to eq('supermariobros') }
     end
 
     context 'with a string that has values in brackets' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('Super Mario Bros. [misc]')).to eq('supermariobros')
-      end
+      let(:string) { 'Super Mario Bros. [misc]' }
+
+      it { is_expected.to eq('supermariobros') }
     end
 
     context 'when the word the is in the middle of the string' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('Happy The Caveman')).to eq('happycaveman')
-      end
+      let(:string) { 'Happy The Caveman' }
+
+      it { is_expected.to eq('happycaveman') }
     end
 
     context 'when the word the is at the beginning of the string' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('The Happy Caveman')).to eq('happycaveman')
-      end
+      let(:string) { 'The Happy Caveman' }
+
+      it { is_expected.to eq('happycaveman') }
     end
 
     context 'when the string contains gbs player v1.0' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('GBS Player V1.0 - Super Mario Bros.')).to eq('supermariobros')
-      end
+      let(:string) { 'GBS Player V1.0 - Super Mario Bros.' }
+
+      it { is_expected.to eq('supermariobros') }
     end
 
     context 'when the string contains Disney\'s' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('Disney\'s Aladdin')).to eq('aladdin')
-      end
+      let(:string) { 'Disney\'s Aladdin' }
+
+      it { is_expected.to eq('aladdin') }
     end
 
     context 'when the string contains special characters within brackets' do
-      it 'returns a slugified string' do
-        expect(described_class.slugify_string('Super Mario Bros. [!p]')).to eq('supermariobros')
-      end
+      let(:string) { 'Super Mario Bros. [!p]' }
+
+      it { is_expected.to eq('supermariobros') }
     end
   end
 
