@@ -84,4 +84,175 @@ describe Eivu::VgData::Models::Game do
       end
     end
   end
+
+  describe 'slugify_rom' do
+    subject(:slugified_rom) { described_class.slugify_rom(path) }
+
+    context 'when the rom is varooom-3d' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d.gba' }
+
+      it { is_expected.to eq('varooom3d') }
+    end
+
+    context 'when the rom is varooom-3d_slow' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d_slow.gba' }
+
+      it { is_expected.to eq('varooom3dslow') }
+    end
+
+    context 'when the rom is butano-fighter' do
+      let(:path) { 'spec/fixtures/roms/gba/butano-fighter.gba' }
+
+      it { is_expected.to eq('butanofighter') }
+    end
+
+    context 'when the rom is Tobu Tobu Girl' do
+      let(:path) { 'spec/fixtures/roms/gameboy/Tobu Tobu Girl (US, JP).gb' }
+
+      it { is_expected.to eq('tobutobugirl') }
+    end
+
+    context 'when the rom is dpadhero2' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero2.nes' }
+
+      it { is_expected.to eq('dpadhero2') }
+    end
+
+    context 'when the rom is flappy' do
+      let(:path) { 'spec/fixtures/roms/nes/flappy.nes' }
+
+      it { is_expected.to eq('flappy') }
+    end
+
+    context 'when the rom is dpadhero' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero.nes' }
+
+      it { is_expected.to eq('dpadhero') }
+    end
+
+    context 'when the rom is Rolling Pumpkins' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Rolling Pumpkins.n64' }
+
+      it { is_expected.to eq('rollingpumpkins') }
+    end
+
+    context 'when the rom is Super Boss Gaiden' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Super Boss Gaiden (J) V1.2a.sfc' }
+
+      it { is_expected.to eq('superbossgaidenv12a') }
+    end
+
+    context 'when the rom is N-Warp Daisakusen' do
+      let(:path) { 'spec/fixtures/roms/snes/N-Warp Daisakusen V1.1.smc' }
+
+      it { is_expected.to eq('nwarpdaisakusenv11') }
+    end
+
+    context 'when the rom is Jet Pilot Rising' do
+      let(:path) { 'spec/fixtures/roms/snes/Jet Pilot Rising (J) (V1.1).sfc' }
+
+      it { is_expected.to eq('jetpilotrising') }
+    end
+
+    context 'when the rom is anguna' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/anguna.nds' }
+
+      it { is_expected.to eq('anguna') }
+    end
+
+    context 'when the rom is Lost In Space' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/Lost In Space.nds' }
+
+      it { is_expected.to eq('lostinspace') }
+    end
+  end
+
+  describe 'find_rom_info' do
+    subject(:rom_info) { described_class.find_rom_info(path) }
+
+    context 'when the rom is varooom-3d' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d.gba' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('varooom3d')
+          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
+          expect(rom_info.id).to eq(79_118)
+        end
+      end
+    end
+
+    context 'when the rom is varooom-3d_slow' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d_slow.gba' }
+
+      it { is_expected.to eq('varooom3dslow') }
+    end
+
+    context 'when the rom is butano-fighter' do
+      let(:path) { 'spec/fixtures/roms/gba/butano-fighter.gba' }
+
+      it { is_expected.to eq('butanofighter') }
+    end
+
+    context 'when the rom is Tobu Tobu Girl' do
+      let(:path) { 'spec/fixtures/roms/gameboy/Tobu Tobu Girl (US, JP).gb' }
+
+      it { is_expected.to eq('tobutobugirl') }
+    end
+
+    context 'when the rom is dpadhero2' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero2.nes' }
+
+      it { is_expected.to eq('dpadhero2') }
+    end
+
+    context 'when the rom is flappy' do
+      let(:path) { 'spec/fixtures/roms/nes/flappy.nes' }
+
+      it { is_expected.to eq('flappy') }
+    end
+
+    context 'when the rom is dpadhero' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero.nes' }
+
+      it { is_expected.to eq('dpadhero') }
+    end
+
+    context 'when the rom is Rolling Pumpkins' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Rolling Pumpkins.n64' }
+
+      it { is_expected.to eq('rollingpumpkins') }
+    end
+
+    context 'when the rom is Super Boss Gaiden' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Super Boss Gaiden (J) V1.2a.sfc' }
+
+      it { is_expected.to eq('superbossgaidenv12a') }
+    end
+
+    context 'when the rom is N-Warp Daisakusen' do
+      let(:path) { 'spec/fixtures/roms/snes/N-Warp Daisakusen V1.1.smc' }
+
+      it { is_expected.to eq('nwarpdaisakusenv11') }
+    end
+
+    context 'when the rom is Jet Pilot Rising' do
+      let(:path) { 'spec/fixtures/roms/snes/Jet Pilot Rising (J) (V1.1).sfc' }
+
+      it { is_expected.to eq('jetpilotrising') }
+    end
+
+    context 'when the rom is anguna' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/anguna.nds' }
+
+      it { is_expected.to eq('anguna') }
+    end
+
+    context 'when the rom is Lost In Space' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/Lost In Space.nds' }
+
+      it { is_expected.to eq('lostinspace') }
+    end
+  end
 end
