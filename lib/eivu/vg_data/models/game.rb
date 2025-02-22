@@ -23,6 +23,11 @@ module Eivu
           RULE_SPECIAL_CHARS = /[^a-z0-9]/
         ].freeze
 
+        SLUGIFY_SECONDARY_RULES_LIST = [
+          RULE_GBS_PLAYER,
+          REGEX_VERSION = /v\d+(\.\d+)?[a-b]?/
+        ]
+
         LEADING_DIGITS = /^(\d{4})/
 
         class << self
@@ -68,6 +73,12 @@ module Eivu
 
           def slugify_rom(rom_name)
             slugify_string(File.basename(rom_name, '.*'))
+          end
+
+          def slugify_string_xtra(string)
+            value = I18n.transliterate(string.dup.downcase.gsub('_', ' '))
+            (SLUGIFY_SECONDARY_RULES_LIST + SLUGIFY_RULES_LIST).each { |rule| value.gsub!(rule, '') }
+            value
           end
         end
 

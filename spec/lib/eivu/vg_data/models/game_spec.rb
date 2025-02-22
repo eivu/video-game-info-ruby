@@ -169,6 +169,76 @@ describe Eivu::VgData::Models::Game do
     end
   end
 
+  describe 'slugify_string_xtra' do
+    subject(:xtra_slug) { described_class.slugify_string_xtra(string) }
+
+    context 'with a normal string' do
+      let(:string) { 'Super Mario Bros.' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'with a string that contains accents' do
+      let(:string) { 'Pokémon Yellow' }
+
+      it { is_expected.to eq('pokemonyellow') }
+    end
+
+    context 'with a string with a country code' do
+      let(:string) { 'Super Mario Bros. (U)' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'with a string that has values in brackets' do
+      let(:string) { 'Super Mario Bros. [misc]' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'when the word the is in the middle of the string' do
+      let(:string) { 'Happy The Caveman' }
+
+      it { is_expected.to eq('happycaveman') }
+    end
+
+    context 'when the word the is at the beginning of the string' do
+      let(:string) { 'The Happy Caveman' }
+
+      it { is_expected.to eq('happycaveman') }
+    end
+
+    context 'when the string contains gbs player v1.0' do
+      let(:string) { 'GBS Player V1.0 - Super Mario Bros.' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'when the string contains Disney\'s' do
+      let(:string) { 'Disney\'s Aladdin' }
+
+      it { is_expected.to eq('aladdin') }
+    end
+
+    context 'when the string contains special characters within brackets' do
+      let(:string) { 'Super Mario Bros. [!p]' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'when the string contains a version number and alpha denotation' do
+      let(:string) { 'Super Boss Gaiden (J) V1.2a' }
+
+      it { is_expected.to eq('superbossgaiden') }
+    end
+
+    context 'when the string contains only a version number' do
+      let(:string) { 'N-Warp Daisakusen V1.1' }
+
+      it { is_expected.to eq('nwarpdaisakusen') }
+    end
+  end
+
   describe 'find_rom_info' do
     subject(:rom_info) { described_class.find_rom_info(path) }
 
