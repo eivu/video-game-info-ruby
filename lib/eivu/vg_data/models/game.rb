@@ -48,7 +48,7 @@ module Eivu
             end
           end
 
-          def find_rom_info(filename)
+          def fetch_rom_info(filename)
             format = File.extname(filename).delete('.')
             platform_id = PlatformFormat.find_by(format:)&.platform_id
             return nil if platform_id.nil?
@@ -74,8 +74,8 @@ module Eivu
             end
           end
 
-          def fetch_rom_as_json(filename)
-            find_rom_info(filename)&.as_json
+          def fetch_rom_info_as_json(filename)
+            fetch_rom_info(filename)&.as_json
           end
 
           def slugify_string(string)

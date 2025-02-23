@@ -321,8 +321,186 @@ describe Eivu::VgData::Models::Game do
     end
   end
 
-  describe 'find_rom_info' do
-    subject(:rom_info) { described_class.find_rom_info(path) }
+  describe 'fetch_rom_info' do
+    subject(:rom_info) { described_class.fetch_rom_info(path) }
+
+    context 'when the rom is varooom-3d' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d.gba' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('varooom3d')
+          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
+          expect(rom_info.id).to eq(79_118)
+        end
+      end
+    end
+
+    context 'when the rom is varooom-3d_slow' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d_slow.gba' }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when the rom is butano-fighter' do
+      let(:path) { 'spec/fixtures/roms/gba/butano-fighter.gba' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('butanofighter')
+          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
+          expect(rom_info.id).to eq(77_337)
+        end
+      end
+    end
+
+    context 'when the rom is Tobu Tobu Girl' do
+      let(:path) { 'spec/fixtures/roms/gameboy/Tobu Tobu Girl (US, JP).gb' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('tobutobugirl')
+          expect(rom_info.platform_name).to eq('Nintendo Game Boy')
+          expect(rom_info.id).to eq(76_973)
+        end
+      end
+    end
+
+    context 'when the rom is dpadhero2' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero2.nes' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('dpadhero2')
+          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
+          expect(rom_info.id).to eq(72_921)
+        end
+      end
+    end
+
+    context 'when the rom is flappy' do
+      let(:path) { 'spec/fixtures/roms/nes/flappy.nes' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('flappy')
+          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
+          expect(rom_info.id).to eq(73_153)
+        end
+      end
+    end
+
+    context 'when the rom is dpadhero' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero.nes' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('dpadhero')
+          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
+          expect(rom_info.id).to eq(72_920)
+        end
+      end
+    end
+
+    context 'when the rom is Rolling Pumpkins' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Rolling Pumpkins.n64' }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when the rom is Super Boss Gaiden' do
+      let(:path) { 'spec/fixtures/roms/snes/Super Boss Gaiden (J) V1.2a.sfc' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('superbossgaiden')
+          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
+          expect(rom_info.id).to eq(123_193)
+        end
+      end
+    end
+
+    context 'when the rom is N-Warp Daisakusen' do
+      let(:path) { 'spec/fixtures/roms/snes/N-Warp Daisakusen V1.1.smc' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('nwarpdaisakusen')
+          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
+          expect(rom_info.id).to eq(122_729)
+        end
+      end
+    end
+
+    context 'when the rom is Jet Pilot Rising' do
+      let(:path) { 'spec/fixtures/roms/snes/Jet Pilot Rising (J) (V1.1).sfc' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('jetpilotrising')
+          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
+          expect(rom_info.id).to eq(122_263)
+        end
+      end
+    end
+
+    context 'when the rom is anguna' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/anguna.nds' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('angunawarriorsofvirtue')
+          expect(rom_info.platform_name).to eq('Nintendo DS')
+          expect(rom_info.id).to eq(67_874)
+        end
+      end
+    end
+
+    context 'when the rom is Lost In Space' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/Lost In Space.nds' }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when the rom is Dexanoid' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Dexanoid.z64' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('dexanoid')
+          expect(rom_info.platform_name).to eq('Nintendo 64')
+          expect(rom_info.id).to eq(67_166)
+        end
+      end
+    end
+
+    context 'when the rom is Pyoro 64' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Pyoro64.n64' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('pyoro64')
+          expect(rom_info.platform_name).to eq('Nintendo 64')
+          expect(rom_info.id).to eq(67_419)
+        end
+      end
+    end
+  end
+
+  describe 'fetch_rom_info' do
+    subject(:rom_info) { described_class.fetch_rom_info(path) }
 
     context 'when the rom is varooom-3d' do
       let(:path) { 'spec/fixtures/roms/gba/varooom-3d.gba' }
