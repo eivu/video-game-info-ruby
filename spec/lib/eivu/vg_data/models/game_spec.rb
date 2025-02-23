@@ -422,9 +422,9 @@ describe Eivu::VgData::Models::Game do
       it 'returns the game info' do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('superbossgaidenv12a')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.slug).to eq('superbossgaiden')
+          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
+          expect(rom_info.id).to eq(123_193)
         end
       end
     end
@@ -435,9 +435,9 @@ describe Eivu::VgData::Models::Game do
       it 'returns the game info' do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('nwarpdaisakusenv11')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.slug).to eq('nwarpdaisakusen')
+          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
+          expect(rom_info.id).to eq(122_729)
         end
       end
     end

@@ -54,12 +54,14 @@ module Eivu
             return nil if platform_id.nil?
 
             slugs = [slugify_rom(filename), slugify_rom_xtra(filename)]
-            slug = slugify_rom(filename)
-            game = Game.find_by(slug:, platform_id:)
-            return game if game.present?
+            # try to find an exact match of the slug via either slug
+            slugs.detect do |slug|
+              game = Game.find_by(slug:, platform_id:)
+              return game if game.present?
 
-            slug.gsub!(LEADING_DIGITS, '')
-            Game.find_by(slug:, platform_id:)
+              slug.gsub!(LEADING_DIGITS, '')
+              Game.find_by(slug:, platform_id:)
+            end
           end
 
           def fetch_rom_as_json(filename)
