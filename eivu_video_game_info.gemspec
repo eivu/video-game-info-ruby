@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.files         = Dir['{config,lib}/**/*', 'CHANGELOG.md', 'MIT-LICENSE', 'README.md']
   s.require_paths = ['lib']
-  s.required_ruby_version = '>= 3.1.2'
+  s.required_ruby_version = '>= 3.2.5'
 
   s.add_dependency 'activerecord', '~> 7.2', '>= 7.2.2.1'
   s.add_dependency 'activesupport', '~> 7.2', '>= 7.2.2.1'
