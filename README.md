@@ -19,4 +19,4 @@ Eivu::VgData::Models::Game.slugify_string(path_to_rom_file)
 Eivu::VgData::Debug.inspect_library(path_to_roms)
 ```
 
-note:1-(2808/11002.0)
+note:1-(2808/11002.0) - (╯°□°)╯︵ ┻━┻
