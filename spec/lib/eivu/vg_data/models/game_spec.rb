@@ -209,7 +209,7 @@ describe Eivu::VgData::Models::Game do
     end
 
     context 'when the rom is Super Boss Gaiden' do
-      let(:path) { 'spec/fixtures/roms/nintendo_64/Super Boss Gaiden (J) V1.2a.sfc' }
+      let(:path) { 'spec/fixtures/roms/snes/Super Boss Gaiden (J) V1.2a.sfc' }
 
       it { is_expected.to eq('superbossgaidenv12a') }
     end
@@ -291,7 +291,7 @@ describe Eivu::VgData::Models::Game do
     end
 
     context 'when the rom is Super Boss Gaiden' do
-      let(:path) { 'spec/fixtures/roms/nintendo_64/Super Boss Gaiden (J) V1.2a.sfc' }
+      let(:path) { 'spec/fixtures/roms/snes/Super Boss Gaiden (J) V1.2a.sfc' }
 
       it { is_expected.to eq('superbossgaiden') }
     end
@@ -411,13 +411,11 @@ describe Eivu::VgData::Models::Game do
     context 'when the rom is Rolling Pumpkins' do
       let(:path) { 'spec/fixtures/roms/nintendo_64/Rolling Pumpkins.n64' }
 
-      it 'returns the game info' do
-        it { is_expected.to be_nil }
-      end
+      it { is_expected.to be_nil }
     end
 
     context 'when the rom is Super Boss Gaiden' do
-      let(:path) { 'spec/fixtures/roms/nintendo_64/Super Boss Gaiden (J) V1.2a.sfc' }
+      let(:path) { 'spec/fixtures/roms/snes/Super Boss Gaiden (J) V1.2a.sfc' }
 
       it 'returns the game info' do
         aggregate_failures do
