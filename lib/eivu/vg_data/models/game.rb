@@ -53,6 +53,7 @@ module Eivu
             platform_id = PlatformFormat.find_by(format:)&.platform_id
             return nil if platform_id.nil?
 
+            slugs = [slugify_rom(filename), slugify_rom_xtra(filename)]
             slug = slugify_rom(filename)
             game = Game.find_by(slug:, platform_id:)
             return game if game.present?
@@ -71,14 +72,19 @@ module Eivu
             value
           end
 
+          def slugify_string_xtra(string)
+            value = I18n.transliterate(string.dup.downcase.gsub('_', ' '))
+
+            (SLUGIFY_SECONDARY_RULES_LIST + SLUGIFY_RULES_LIST).each { |rule| value.gsub!(rule, '') }
+            value
+          end
+
           def slugify_rom(rom_name)
             slugify_string(File.basename(rom_name, '.*'))
           end
 
-          def slugify_string_xtra(string)
-            value = I18n.transliterate(string.dup.downcase.gsub('_', ' '))
-            (SLUGIFY_SECONDARY_RULES_LIST + SLUGIFY_RULES_LIST).each { |rule| value.gsub!(rule, '') }
-            value
+          def slugify_rom_xtra(rom_name)
+            slugify_string_xtra(File.basename(rom_name, '.*'))
           end
         end
 

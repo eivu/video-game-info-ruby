@@ -87,6 +87,76 @@ describe Eivu::VgData::Models::Game do
     end
   end
 
+  describe 'slugify_string_xtra' do
+    subject(:xtra_slug) { described_class.slugify_string_xtra(string) }
+
+    context 'with a normal string' do
+      let(:string) { 'Super Mario Bros.' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'with a string that contains accents' do
+      let(:string) { 'Pokémon Yellow' }
+
+      it { is_expected.to eq('pokemonyellow') }
+    end
+
+    context 'with a string with a country code' do
+      let(:string) { 'Super Mario Bros. (U)' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'with a string that has values in brackets' do
+      let(:string) { 'Super Mario Bros. [misc]' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'when the word the is in the middle of the string' do
+      let(:string) { 'Happy The Caveman' }
+
+      it { is_expected.to eq('happycaveman') }
+    end
+
+    context 'when the word the is at the beginning of the string' do
+      let(:string) { 'The Happy Caveman' }
+
+      it { is_expected.to eq('happycaveman') }
+    end
+
+    context 'when the string contains gbs player v1.0' do
+      let(:string) { 'GBS Player V1.0 - Super Mario Bros.' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'when the string contains Disney\'s' do
+      let(:string) { 'Disney\'s Aladdin' }
+
+      it { is_expected.to eq('aladdin') }
+    end
+
+    context 'when the string contains special characters within brackets' do
+      let(:string) { 'Super Mario Bros. [!p]' }
+
+      it { is_expected.to eq('supermariobros') }
+    end
+
+    context 'when the string contains a version number and alpha denotation' do
+      let(:string) { 'Super Boss Gaiden (J) V1.2a' }
+
+      it { is_expected.to eq('superbossgaiden') }
+    end
+
+    context 'when the string contains only a version number' do
+      let(:string) { 'N-Warp Daisakusen V1.1' }
+
+      it { is_expected.to eq('nwarpdaisakusen') }
+    end
+  end
+
   describe 'slugify_rom' do
     subject(:slugified_rom) { described_class.slugify_rom(path) }
 
@@ -169,73 +239,85 @@ describe Eivu::VgData::Models::Game do
     end
   end
 
-  describe 'slugify_string_xtra' do
-    subject(:xtra_slug) { described_class.slugify_string_xtra(string) }
+  describe 'slugify_rom_xtra' do
+    subject(:slug) { described_class.slugify_rom_xtra(path) }
 
-    context 'with a normal string' do
-      let(:string) { 'Super Mario Bros.' }
+    context 'when the rom is varooom-3d' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d.gba' }
 
-      it { is_expected.to eq('supermariobros') }
+      it { is_expected.to eq('varooom3d') }
     end
 
-    context 'with a string that contains accents' do
-      let(:string) { 'Pokémon Yellow' }
+    context 'when the rom is varooom-3d_slow' do
+      let(:path) { 'spec/fixtures/roms/gba/varooom-3d_slow.gba' }
 
-      it { is_expected.to eq('pokemonyellow') }
+      it { is_expected.to eq('varooom3dslow') }
     end
 
-    context 'with a string with a country code' do
-      let(:string) { 'Super Mario Bros. (U)' }
+    context 'when the rom is butano-fighter' do
+      let(:path) { 'spec/fixtures/roms/gba/butano-fighter.gba' }
 
-      it { is_expected.to eq('supermariobros') }
+      it { is_expected.to eq('butanofighter') }
     end
 
-    context 'with a string that has values in brackets' do
-      let(:string) { 'Super Mario Bros. [misc]' }
+    context 'when the rom is Tobu Tobu Girl' do
+      let(:path) { 'spec/fixtures/roms/gameboy/Tobu Tobu Girl (US, JP).gb' }
 
-      it { is_expected.to eq('supermariobros') }
+      it { is_expected.to eq('tobutobugirl') }
     end
 
-    context 'when the word the is in the middle of the string' do
-      let(:string) { 'Happy The Caveman' }
+    context 'when the rom is dpadhero2' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero2.nes' }
 
-      it { is_expected.to eq('happycaveman') }
+      it { is_expected.to eq('dpadhero2') }
     end
 
-    context 'when the word the is at the beginning of the string' do
-      let(:string) { 'The Happy Caveman' }
+    context 'when the rom is flappy' do
+      let(:path) { 'spec/fixtures/roms/nes/flappy (1).nes' }
 
-      it { is_expected.to eq('happycaveman') }
+      it { is_expected.to eq('flappy') }
     end
 
-    context 'when the string contains gbs player v1.0' do
-      let(:string) { 'GBS Player V1.0 - Super Mario Bros.' }
+    context 'when the rom is dpadhero' do
+      let(:path) { 'spec/fixtures/roms/nes/dpadhero.nes' }
 
-      it { is_expected.to eq('supermariobros') }
+      it { is_expected.to eq('dpadhero') }
     end
 
-    context 'when the string contains Disney\'s' do
-      let(:string) { 'Disney\'s Aladdin' }
+    context 'when the rom is Rolling Pumpkins' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Rolling Pumpkins.n64' }
 
-      it { is_expected.to eq('aladdin') }
+      it { is_expected.to eq('rollingpumpkins') }
     end
 
-    context 'when the string contains special characters within brackets' do
-      let(:string) { 'Super Mario Bros. [!p]' }
-
-      it { is_expected.to eq('supermariobros') }
-    end
-
-    context 'when the string contains a version number and alpha denotation' do
-      let(:string) { 'Super Boss Gaiden (J) V1.2a' }
+    context 'when the rom is Super Boss Gaiden' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Super Boss Gaiden (J) V1.2a.sfc' }
 
       it { is_expected.to eq('superbossgaiden') }
     end
 
-    context 'when the string contains only a version number' do
-      let(:string) { 'N-Warp Daisakusen V1.1' }
+    context 'when the rom is N-Warp Daisakusen' do
+      let(:path) { 'spec/fixtures/roms/snes/N-Warp Daisakusen V1.1.smc' }
 
       it { is_expected.to eq('nwarpdaisakusen') }
+    end
+
+    context 'when the rom is Jet Pilot Rising' do
+      let(:path) { 'spec/fixtures/roms/snes/Jet Pilot Rising (J) (V1.1).sfc' }
+
+      it { is_expected.to eq('jetpilotrising') }
+    end
+
+    context 'when the rom is anguna' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/anguna.nds' }
+
+      it { is_expected.to eq('anguna') }
+    end
+
+    context 'when the rom is Lost In Space' do
+      let(:path) { 'spec/fixtures/roms/nintendo_ds/Lost In Space.nds' }
+
+      it { is_expected.to eq('lostinspace') }
     end
   end
 
