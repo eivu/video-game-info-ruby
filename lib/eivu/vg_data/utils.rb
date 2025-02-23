@@ -21,7 +21,7 @@ module Eivu
               next if path_to_rom.starts_with?('.') || File.directory?(path_to_rom)
 
               slug = Eivu::VgData::Models::Game.slugify_rom(path_to_rom)
-              game = Eivu::VgData::Models::Game.find_rom_info(path_to_rom)
+              game = Eivu::VgData::Models::Game.fetch_rom_info(path_to_rom)
               status = game.nil? ? 'not found' : game.id
               puts "#{status} - #{game&.platform_id}:#{slug} - #{path_to_rom}"
               log << [File.basename(path_to_rom), game&.platform_id, slug, status]
