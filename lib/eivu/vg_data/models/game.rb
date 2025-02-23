@@ -62,6 +62,16 @@ module Eivu
               slug.gsub!(LEADING_DIGITS, '')
               Game.find_by(slug:, platform_id:)
             end
+
+            # if no exact match, return a match if there is only a single partial match
+            slugs.detect do |slug|
+              matches = Game.where(platform_id:).where('slug like ?', "#{slug}%")
+              return matches.first if matches.size == 1
+
+              slug.gsub!(LEADING_DIGITS, '')
+              matches = Game.where(platform_id:).where('slug like ?', "#{slug}%")
+              return matches.first if matches.size == 1
+            end
           end
 
           def fetch_rom_as_json(filename)

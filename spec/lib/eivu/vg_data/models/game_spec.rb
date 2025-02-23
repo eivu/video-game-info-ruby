@@ -459,9 +459,9 @@ describe Eivu::VgData::Models::Game do
       it 'returns the game info' do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('anguna')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.slug).to eq('angunawarriorsofvirtue')
+          expect(rom_info.platform_name).to eq('Nintendo DS')
+          expect(rom_info.id).to eq(67_874)
         end
       end
     end
@@ -469,12 +469,31 @@ describe Eivu::VgData::Models::Game do
     context 'when the rom is Lost In Space' do
       let(:path) { 'spec/fixtures/roms/nintendo_ds/Lost In Space.nds' }
 
+      it { is_expected.to be_nil }
+    end
+
+    context 'when the rom is Dexanoid' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Dexanoid.z64' }
+
       it 'returns the game info' do
         aggregate_failures do
           expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('lostinspace')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(rom_info.slug).to eq('dexanoid')
+          expect(rom_info.platform_name).to eq('Nintendo 64')
+          expect(rom_info.id).to eq(67_166)
+        end
+      end
+    end
+
+    context 'when the rom is Pyoro 64' do
+      let(:path) { 'spec/fixtures/roms/nintendo_64/Pyoro64.n64' }
+
+      it 'returns the game info' do
+        aggregate_failures do
+          expect(rom_info).to be_a(described_class)
+          expect(rom_info.slug).to eq('pyoro64')
+          expect(rom_info.platform_name).to eq('Nintendo 64')
+          expect(rom_info.id).to eq(67_419)
         end
       end
     end
