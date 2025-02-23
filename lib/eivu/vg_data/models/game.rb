@@ -23,11 +23,16 @@ module Eivu
           RULE_SPECIAL_CHARS = /[^a-z0-9]/
         ].freeze
 
+        SLUGIFY_SECONDARY_RULES_LIST = [
+          RULE_GBS_PLAYER,
+          REGEX_VERSION = /v\d+(\.\d+)?[a-b]?/
+        ]
+
         LEADING_DIGITS = /^(\d{4})/
 
         class << self
           def extract_country(rom_name)
-            case rom_name.scan(COUNTRY_REGEX).flatten&.first
+            case rom_name.scan(REGEX_COUNTRY).flatten&.first
             when 'U'
               'USA'
             when 'J'
@@ -43,21 +48,34 @@ module Eivu
             end
           end
 
-          def find_rom_info(filename)
+          def fetch_rom_info(filename)
             format = File.extname(filename).delete('.')
             platform_id = PlatformFormat.find_by(format:)&.platform_id
             return nil if platform_id.nil?
 
-            slug = slugify_rom(filename)
-            game = Game.find_by(slug:, platform_id:)
-            return game if game.present?
+            slugs = [slugify_rom(filename), slugify_rom_xtra(filename)]
+            # try to find an exact match of the slug via either slug
+            slugs.detect do |slug|
+              game = Game.find_by(slug:, platform_id:)
+              return game if game.present?
 
-            slug.gsub!(LEADING_DIGITS, '')
-            Game.find_by(slug:, platform_id:)
+              slug.gsub!(LEADING_DIGITS, '')
+              Game.find_by(slug:, platform_id:)
+            end
+
+            # if no exact match, return a match if there is only a single partial match
+            slugs.detect do |slug|
+              matches = Game.where(platform_id:).where('slug like ?', "#{slug}%")
+              return matches.first if matches.size == 1
+
+              slug.gsub!(LEADING_DIGITS, '')
+              matches = Game.where(platform_id:).where('slug like ?', "#{slug}%")
+              return matches.first if matches.size == 1
+            end
           end
 
-          def fetch_rom_as_json(filename)
-            find_rom_info(filename)&.as_json
+          def fetch_rom_info_as_json(filename)
+            fetch_rom_info(filename)&.as_json
           end
 
           def slugify_string(string)
@@ -66,8 +84,19 @@ module Eivu
             value
           end
 
+          def slugify_string_xtra(string)
+            value = I18n.transliterate(string.dup.downcase.gsub('_', ' '))
+
+            (SLUGIFY_SECONDARY_RULES_LIST + SLUGIFY_RULES_LIST).each { |rule| value.gsub!(rule, '') }
+            value
+          end
+
           def slugify_rom(rom_name)
             slugify_string(File.basename(rom_name, '.*'))
+          end
+
+          def slugify_rom_xtra(rom_name)
+            slugify_string_xtra(File.basename(rom_name, '.*'))
           end
         end
 
