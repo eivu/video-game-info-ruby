@@ -499,18 +499,18 @@ describe Eivu::VgData::Models::Game do
     end
   end
 
-  describe 'fetch_rom_info' do
-    subject(:rom_info) { described_class.fetch_rom_info(path) }
+  describe 'fetch_rom_info_as_json' do
+    subject(:json_info) { described_class.fetch_rom_info_as_json(path) }
 
     context 'when the rom is varooom-3d' do
       let(:path) { 'spec/fixtures/roms/gba/varooom-3d.gba' }
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('varooom3d')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(79_118)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('varooom3d')
+          expect(json_info[:platform_name]).to eq('Nintendo Game Boy Advance')
+          expect(json_info[:id]).to eq(79_118)
         end
       end
     end
@@ -526,10 +526,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('butanofighter')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy Advance')
-          expect(rom_info.id).to eq(77_337)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('butanofighter')
+          expect(json_info[:platform_name]).to eq('Nintendo Game Boy Advance')
+          expect(json_info[:id]).to eq(77_337)
         end
       end
     end
@@ -539,10 +539,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('tobutobugirl')
-          expect(rom_info.platform_name).to eq('Nintendo Game Boy')
-          expect(rom_info.id).to eq(76_973)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('tobutobugirl')
+          expect(json_info[:platform_name]).to eq('Nintendo Game Boy')
+          expect(json_info[:id]).to eq(76_973)
         end
       end
     end
@@ -552,10 +552,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('dpadhero2')
-          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
-          expect(rom_info.id).to eq(72_921)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('dpadhero2')
+          expect(json_info[:platform_name]).to eq('Nintendo Entertainment System')
+          expect(json_info[:id]).to eq(72_921)
         end
       end
     end
@@ -565,10 +565,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('flappy')
-          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
-          expect(rom_info.id).to eq(73_153)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('flappy')
+          expect(json_info[:platform_name]).to eq('Nintendo Entertainment System')
+          expect(json_info[:id]).to eq(73_153)
         end
       end
     end
@@ -578,10 +578,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('dpadhero')
-          expect(rom_info.platform_name).to eq('Nintendo Entertainment System')
-          expect(rom_info.id).to eq(72_920)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('dpadhero')
+          expect(json_info[:platform_name]).to eq('Nintendo Entertainment System')
+          expect(json_info[:id]).to eq(72_920)
         end
       end
     end
@@ -597,10 +597,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('superbossgaiden')
-          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
-          expect(rom_info.id).to eq(123_193)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('superbossgaiden')
+          expect(json_info[:platform_name]).to eq('Super Nintendo Entertainment System')
+          expect(json_info[:id]).to eq(123_193)
         end
       end
     end
@@ -610,10 +610,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('nwarpdaisakusen')
-          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
-          expect(rom_info.id).to eq(122_729)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('nwarpdaisakusen')
+          expect(json_info[:platform_name]).to eq('Super Nintendo Entertainment System')
+          expect(json_info[:id]).to eq(122_729)
         end
       end
     end
@@ -623,10 +623,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('jetpilotrising')
-          expect(rom_info.platform_name).to eq('Super Nintendo Entertainment System')
-          expect(rom_info.id).to eq(122_263)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('jetpilotrising')
+          expect(json_info[:platform_name]).to eq('Super Nintendo Entertainment System')
+          expect(json_info[:id]).to eq(122_263)
         end
       end
     end
@@ -636,10 +636,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('angunawarriorsofvirtue')
-          expect(rom_info.platform_name).to eq('Nintendo DS')
-          expect(rom_info.id).to eq(67_874)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('angunawarriorsofvirtue')
+          expect(json_info[:platform_name]).to eq('Nintendo DS')
+          expect(json_info[:id]).to eq(67_874)
         end
       end
     end
@@ -655,10 +655,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('dexanoid')
-          expect(rom_info.platform_name).to eq('Nintendo 64')
-          expect(rom_info.id).to eq(67_166)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('dexanoid')
+          expect(json_info[:platform_name]).to eq('Nintendo 64')
+          expect(json_info[:id]).to eq(67_166)
         end
       end
     end
@@ -668,10 +668,10 @@ describe Eivu::VgData::Models::Game do
 
       it 'returns the game info' do
         aggregate_failures do
-          expect(rom_info).to be_a(described_class)
-          expect(rom_info.slug).to eq('pyoro64')
-          expect(rom_info.platform_name).to eq('Nintendo 64')
-          expect(rom_info.id).to eq(67_419)
+          expect(json_info).to be_a(Hash)
+          expect(json_info[:slug]).to eq('pyoro64')
+          expect(json_info[:platform_name]).to eq('Nintendo 64')
+          expect(json_info[:id]).to eq(67_419)
         end
       end
     end
