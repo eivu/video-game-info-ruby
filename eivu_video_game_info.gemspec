@@ -23,8 +23,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.required_ruby_version = '>= 3.2.5'
 
-  s.add_dependency 'activerecord', '~> 7.2', '>= 7.2.2.1'
-  s.add_dependency 'activesupport', '~> 7.2', '>= 7.2.2.1'
+  s.add_dependency 'activesupport', '>= 6.1.4', '< 8.0'
   s.add_dependency 'nokogiri', '~> 1.17', '>= 1.17.2'
   s.add_dependency 'rspec', '~> 3.13'
   s.add_dependency 'rubocop', '~> 1.57', '>= 1.57.2'
