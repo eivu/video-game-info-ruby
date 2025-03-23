@@ -1,5 +1,17 @@
-require:
-  - rubocop
+AllCops:
+  TargetRubyVersion: 3.2.5
+
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - notes/**/*
+    - spec/support/vcr_helper.rb
+    - spec/spec_helper.rb
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
 
 # We want some defaults merged instead of overwriting them.
 inherit_mode:
@@ -8,14 +20,6 @@ inherit_mode:
     - AllowedNames # for Naming/Uncommunicative* cops
     - IgnoredMethods # for Style/SymbolProc
 
-AllCops:
-  TargetRubyVersion: 3.1
-  NewCops: enable
-  SuggestExtensions: false
-  Exclude:
-    - notes/**/*
-    - spec/support/vcr_helper.rb
-    - spec/spec_helper.rb    
 
 Style/Documentation:
   Enabled: false
