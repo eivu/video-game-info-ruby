@@ -1,7 +1,16 @@
+# frozen_string_literal: true
+
+require "eivu_video_game_info"
+
 RSpec.configure do |config|
-  config.expect_with :rspec do |expectations|
-    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  # Enable flags like --only-failures and --next-failure
+  config.example_status_persistence_file_path = ".rspec_status"
+
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+    c.include_chain_clauses_in_custom_matcher_descriptions = true
   end
+
   # config.include FactoryBot::Syntax::Methods
   # config.before(:suite) do
   #   FactoryBot.find_definitions
@@ -15,3 +24,5 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 end
+
+  
