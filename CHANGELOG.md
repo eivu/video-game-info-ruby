@@ -1,5 +1,5 @@
 ## [Unreleased]
 
-## [0.1.0] - 2025-03-23
+## [1.1.1] - 2025-03-23
 
-- Initial release
+- Code has been refacorted so it can be a gem
