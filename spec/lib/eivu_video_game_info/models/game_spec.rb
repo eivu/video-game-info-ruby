@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'eivu'
+require 'eivu_video_game_info'
 
-describe Eivu::VgData::Models::Game do
+describe EivuVideoGameInfo::Models::Game do
   describe 'extract_country' do
     it 'returns USA for U' do
       expect(described_class.extract_country('Super Mario Bros. (U)')).to eq('USA')

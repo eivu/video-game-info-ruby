@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '3.1.2'
+ruby '3.2.5'
 
 gem 'activerecord', '~> 7.2', '>= 7.2.2.1' # Object-relational mapping
 gem 'activesupport', '~> 7.2', '>= 7.2.2.1' # Utility classes and standard library extensions
