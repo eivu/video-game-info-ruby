@@ -9,7 +9,7 @@ inherit_mode:
     - IgnoredMethods # for Style/SymbolProc
 
 AllCops:
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.2.5
   NewCops: enable
   SuggestExtensions: false
   Exclude:
