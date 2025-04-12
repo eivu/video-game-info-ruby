@@ -8,7 +8,7 @@ module EivuVideoGameInfo
 
         included do
           ActiveRecord::Base.establish_connection(adapter: "sqlite3",
-                                                  database: "lib/eivu_video_game_info/db/db.sqlite3")
+                                                  database: "../../db/db.sqlite3")
         end
       end
     end
