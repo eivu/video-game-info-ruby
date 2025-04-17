@@ -36,11 +36,12 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "activerecord", ">= 6.1.4", "< 8.0"
   spec.add_dependency "activesupport", ">= 6.1.4", "< 8.0"
   spec.add_dependency "nokogiri", "~> 1.17", ">= 1.17.2"
   spec.add_dependency "rspec", "~> 3.13"
   spec.add_dependency "rubocop", "~> 1.57", ">= 1.57.2"
-  spec.add_dependency "sqlite3", "~> 2.0", ">= 2.0.2"
+  spec.add_dependency "sqlite3", ">= 1.4"
   spec.add_dependency "zeitwerk", "~> 2.6", ">= 2.6.12"
   spec.metadata["rubygems_mfa_required"] = "true"
 end
